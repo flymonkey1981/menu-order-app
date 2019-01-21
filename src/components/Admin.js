@@ -1,56 +1,61 @@
 import PropTypes from 'prop-types';
 import React, {Component} from 'react';
-import '../styles/components/admin.scss'
+import '../styles/components/admin.scss';
+import $ from "jquery";
+
+const propTypes = {
+    adminLogin: PropTypes.func.isRequired
+};
 
 class Admin extends Component {
+    componentDidMount() {
+        // Jquery here $(...)...
+        $('.message a').click(function(){
+            $('form').animate({height: "toggle", opacity: "toggle"}, "slow");
+        });
+    }
+
+    constructor() {
+        super();
+        this.state = {
+            form: {
+                username: '',
+                password: ''
+
+            }
+
+        };
+    }
+
+    onChange = (e) => {
+        let form = {...this.state.form};
+        form[e.target.name] = e.target.value
+        this.setState({form});
+    }
+
     render(){
+        const {adminLogin, history} = this.props;
+        const {form} = this.state;
         return(
-            <div className="limiter">
-                <div className="container-login100" style="background-image: url('images/bg-01.jpg');">
-                    <div className="wrap-login100">
-                        <form className="login100-form validate-form">
-					<span className="login100-form-logo">
-						<i className="zmdi zmdi-landscape"></i>
-					</span>
-
-                            <span className="login100-form-title p-b-34 p-t-27">
-						Log in
-					</span>
-
-                            <div className="wrap-input100 validate-input" data-validate="Enter username">
-                                <input className="input100" type="text" name="username" placeholder="Username"/>
-                                    <span className="focus-input100" data-placeholder="&#xf207;"></span>
-                            </div>
-
-                            <div className="wrap-input100 validate-input" data-validate="Enter password">
-                                <input className="input100" type="password" name="pass" placeholder="Password"/>
-                                    <span className="focus-input100" data-placeholder="&#xf191;"></span>
-                            </div>
-
-                            <div className="contact100-form-checkbox">
-                                <input className="input-checkbox100" id="ckb1" type="checkbox" name="remember-me"/>
-                                    <label className="label-checkbox100" htmlFor="ckb1">
-                                        Remember me
-                                    </label>
-                            </div>
-
-                            <div className="container-login100-form-btn">
-                                <button className="login100-form-btn">
-                                    Login
-                                </button>
-                            </div>
-
-                            <div className="text-center p-t-90">
-                                <a className="txt1" href="#">
-                                    Forgot Password?
-                                </a>
-                            </div>
-                        </form>
-                    </div>
+            <div className="login-page">
+                <div className="form">
+                    <h1>Admin</h1>
+                    <form className="login-form" onSubmit={(event) => {
+                        event.preventDefault();
+                        adminLogin(form, history);
+                    }}>
+                        <input type="text" name="username" placeholder="username" value={form.username}
+                               onChange={this.onChange}/>
+                        <input type="password" name="password" placeholder="password" value={form.password}
+                               onChange={this.onChange}/>
+                        <button>login</button>
+                    </form>
                 </div>
             </div>
         );
     }
 };
+
+Admin.propTypes = propTypes;
 
 export default Admin;
