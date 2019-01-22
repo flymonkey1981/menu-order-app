@@ -6,6 +6,9 @@ import MenusContainer from '../container/MenusContainer';
 import AdminContainer from '../container/AdminContainer';
 import AdminMGTContainer from '../container/AdminMGTContainer';
 import AddAdminContainer from '../container/AddAdminContainer';
+import AddFoodContainer from '../container/AddFoodContainer';
+import AddCustomerContainer from '../container/AddCustomerContainer';
+import AddChefContainer from '../container/AddChefContainer';
 
 const propTypes = {
 
@@ -24,6 +27,9 @@ class Root extends Component {
                     <Route path="/admin" component={AdminContainer}/>
                     <Route path="/adminmgt" component={AdminMGTContainer}/>
                     <Route path="/addadmin" component={AddAdminContainer}/>
+                    <Route path="/addfood" component={AddFoodContainer}/>
+                    <Route path="/addcust" component={AddCustomerContainer}/>
+                    <Route path="/addchef" component={AddChefContainer}/>
                 </Switch>
             </Router>
 
